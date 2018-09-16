@@ -1,30 +1,31 @@
 const urlP1 = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=";
 const urlP2 = "&interval=1min&apikey=0CZBXPGPXL2CBG2Q";
 
+var fs = require('fs');
+var data = fs.readFileSync('symbol.json');
+var symbolJson = JSON.parse(data);
+console.log(symbolJson);
 
-
-var request = require ('request');
-request("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=AAPL&interval=1min&apikey=0CZBXPGPXL2CBG2Q", function(error,response,body){
-    
-    body = JSON.parse(body);
-    companySymbol(body);
-    newPrice(body);
-});
+var S1 = symbolJson['S1'];
+var S2 = symbolJson['S2'];
+var S3 = symbolJson['S3'];
+var S4 = symbolJson['S4'];
 
 var R1 = require ('request');
 var R2 = require ('request');
 var R3 = require ('request');
 var R4 = require ('request');
 
-R1(urlP1+"AAPL"+urlP2, function(error,response,body){
+R1(urlP1+S1+urlP2, function(error,response,body){
     
     body = JSON.parse(body);
+    console.log(body,S1);
     companySymbol(body,1);
     newPrice(body,1);
 
 });
 
-R2(urlP1+"GOOG"+urlP2, function(error,response,body){
+R2(urlP1+S2+urlP2, function(error,response,body){
     
    body = JSON.parse(body);
 
@@ -33,7 +34,7 @@ R2(urlP1+"GOOG"+urlP2, function(error,response,body){
 
 });
 
-R3(urlP1+"SNAP"+urlP2, function(error,response,body){
+R3(urlP1+S3+urlP2, function(error,response,body){
     
     body = JSON.parse(body);
  
@@ -41,7 +42,7 @@ R3(urlP1+"SNAP"+urlP2, function(error,response,body){
      newPrice(body,3);
  
  });
- R4(urlP1+"F"+urlP2, function(error,response,body){
+ R4(urlP1+S4+urlP2, function(error,response,body){
     
     body = JSON.parse(body);
  
@@ -60,7 +61,7 @@ function companySymbol(arr,int){
     var row = int;
      var companySymbol = B[1]
      document.getElementById("symbol"+row).innerHTML = "Symbol: "+companySymbol 
-     
+     console.log("s "+ row );
 
      
 }
@@ -70,6 +71,7 @@ function newPrice(arr,int){
     // SECOND LAYER OBJECT
     var B = Object.keys(A).map(i => A[i])
     var row = int;
+    console.log("p "+ row );
     var newPrice = parseFloat(B[0]["4. close"])
     document.getElementById("price"+row).innerHTML = newPrice
 
