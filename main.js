@@ -14,7 +14,7 @@ app.once('ready', () => {
     // Set the initial width to 800px
     width: 400,
     // Set the initial height to 600px
-    height: 455,
+    height: 410,
     // Set the default background color of the window to match the CSS
     // background color of the page, this prevents any white flickering
     
@@ -41,13 +41,18 @@ app.once('ready', () => {
   const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
   // Insert menu
   Menu.setApplicationMenu(mainMenu);
+
+  //close main windows and quit the app
+  mainWindow.on('closed',function(){
+    app.quit;
+  });
 })
 
 // create menu template
 const mainMenuTemplate = [
   {
    
-    label:'File',
+    label:'Stock Price',
     submenu:[
       {
         label: 'Change Company symbol',
@@ -107,9 +112,17 @@ function createChangeSyWindow(){
   }));
   //Garbage collection handle
   ChangeSyWindow.on('close',function(){
+    mainWindow.reload();
     ChangeSyWindow = null;
   })
 }
+
+
+
+
+
+
+
 
 
 

@@ -7,7 +7,7 @@
     color: antiquewhite;
     size: 60%;
   }
-  h3 {
+  h4 {
     color: coral;
     size: 60%;
   }
@@ -29,20 +29,13 @@
   }
   
   .price {
-    padding-left: 20%;
+    padding-left: 5%;
 
   }
   
-  /* Add a ( before the change */
-  .change::before {
-    content: '(';
-  }
-  
-  /* Add a ) after the change */
-  .change::after {
-    content: ')';
-  }
-  
+.chagne {
+  padding-left: 6%;
+}
   /* Add a $ before the price */
   .price::before {
     content: '$';

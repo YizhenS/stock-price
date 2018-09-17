@@ -2,40 +2,40 @@
   <html>
     <head>
       <meta charset="UTF-8">
-
+      <style>
+      input {
+        width: 50px;
+      }
+      </style>
     </head>
 
     <body>
-        <form>
-            <label>Which row you want to change</label>
-            
-            <select id="row">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-            </select>
-            <br>
-            <label>The company's symbol</label>
-            <br>
-            <input type="text" id="symbol" autofocus>
-            <br>
-            <button type="submit">Comfirm</button>
-        </form>
-    <script>
-        const electron = require('electron');
-        const {ipcRenderer} = electron;
-
-        const form = document.querySelector('form');
-        form.addEventListener('submit', submitForm);
-        function submitForm(e){
-            e.preventDefault();
-            const row = document.querySelector('#row').value;
-            const symbol = document.querySelector('#symbol').value
-            ipcRenderer.send('row:number',row);
-            ipcRenderer.send('symbol:changed', symbol);
-        }
-    </script>
+      <div id="form">
+          <form>
+              <label>Enter the four company stock you want to monitor</label>
+              
+              <br>
+              <label>1st</label>
+              <input type="text" id="s1"  autofocus><input type="text" id="p1">
+              <br>
+              <label>2nd</label>
+              <input type="text" id="s2" autofocus><input type="text" id="p2">
+              <br>
+              <label>3rd</label>
+              <input type="text" id="s3" autofocus><input type="text" id="p3">
+              <br>
+              <label>4th</label>
+              <input type="text" id="s4" autofocus><input type="text" id="p4">
+              <br>
+              <button type="button" onclick="submitForm()">Comfirm</button>
+          </form>
+      </div>
+      <div id="success" display="none">
+        You have changed company symbols.
+        <button type="button" onclick="closeWindow()">close</button>
+      </div>
+        
+    <script src="ChangeSy.js"></script>
         
     </body>
   </html> 

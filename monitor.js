@@ -6,10 +6,10 @@ var data = fs.readFileSync('symbol.json');
 var symbolJson = JSON.parse(data);
 console.log(symbolJson);
 
-var S1 = symbolJson['S1'];
-var S2 = symbolJson['S2'];
-var S3 = symbolJson['S3'];
-var S4 = symbolJson['S4'];
+var S1 = symbolJson[0][0];
+var S2 = symbolJson[1][0];
+var S3 = symbolJson[2][0];
+var S4 = symbolJson[3][0];
 
 var R1 = require ('request');
 var R2 = require ('request');
@@ -74,6 +74,24 @@ function newPrice(arr,int){
     console.log("p "+ row );
     var newPrice = parseFloat(B[0]["4. close"])
     document.getElementById("price"+row).innerHTML = newPrice
+    var buyPrice = symbolJson[row-1][1];
+    var diff = Math.round((newPrice - buyPrice)*100)/100 ;
+    var percentage = Math.round((diff / buyPrice)*100)/100;
+    if(diff>0){
+        document.getElementById("buy"+row).innerHTML = "+"+diff;
+        document.getElementById("per"+row).innerHTML = "("+percentage+")";
+        document.getElementById("buy"+row).style.color = "red";
+        document.getElementById("per"+row).style.color = "red";
+    }else if(diff<0){
+        document.getElementById("buy"+row).innerHTML = diff;
+        document.getElementById("per"+row).innerHTML = "("+percentage+")";
+        document.getElementById("buy"+row).style.color = "green";
+        document.getElementById("per"+row).style.color = "green";
+    }else if(buyPrice == 0){
+        document.getElementById("buy"+row).style.display = "none";
+        document.getElementById("per"+row).style.display = "none";
+    }
+    
 
 
 }
